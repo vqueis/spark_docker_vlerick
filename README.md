@@ -4,10 +4,8 @@
 
 ## Context
 
-These are the exercises used in the course *Building solid data pipelines with
-PySpark*, reduced to the set that can be handled during our summer/winter
-school format (that's a heavy reduction: from 12h of interactive moments to
-about 5h).  The course has been developed by instructors at Data Minded. The
+These are the PySpark exercises used in the course *Cloud solutions and modern data platforms*.
+The
 exercises are meant to be completed in the lexicographical order determined by
 name of their parent folders. That is, exercises inside the folder `b_foo`
 should be completed before those in `c_bar`, but both should come after those
@@ -112,6 +110,6 @@ Out of the 5 categories of sources for delays, which one appeared most often in
 2011? In other words, in which category should we invest more time to improve?
 applications
 
-[this gitpod]: https://gitpod.io/#https://github.com/datamindedacademy/summerschool_pyspark
+[this gitpod]: https://github.com/datamindedacademy/spark_docker_vlerick
 [gitpod logo]: https://gitpod.io/button/open-in-gitpod.svg
 [Data Minded Academy]: https://www.dataminded.academy/
