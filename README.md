@@ -1,5 +1,4 @@
-# Building solid data pipelines with PySpark
-# COPIED FROM GITHUB DURING CLASS #
+# COPIED FROM GITHUB DURING CLASS - README File
 📚 A course brought to you by the [Data Minded Academy].
 
 ## Context
