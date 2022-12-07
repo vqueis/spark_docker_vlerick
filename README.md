@@ -115,3 +115,4 @@ applications
 [this gitpod]: https://gitpod.io/#https://github.com/vqueis/spark_docker_vlerick
 [gitpod logo]: https://gitpod.io/button/open-in-gitpod.svg
 [Data Minded Academy]: https://www.dataminded.academy/
+
