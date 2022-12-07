@@ -16,3 +16,4 @@ the logs. Every 10 seconds the clock will send you a “secret message”. What 
 3. Run another container from the image `devopsdockeruh/simple-web-service:ubuntu` and use the 
 second known method to connect inside a running container. You want another method than the one used in (2). 
 What is the difference between those two approaches?
+
