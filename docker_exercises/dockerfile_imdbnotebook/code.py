@@ -1,28 +1,27 @@
 ### 1. Read the CSV data from this S3 bucket using PySpark ###
-
-df = spark.read.csv('s3://<bucket_name>/<path_to_file>')
-# Import the necessary modules
+from pyspark import SparkConf
 from pyspark.sql import SparkSession
 
-# Create a SparkSession object
-spark = SparkSession.builder.appName('my_app').getOrCreate()
+BUCKET = "dmacademy-course-assets"
+KEY = "vlerick/after_release.csv", "vlerick/pre_release.csv"
 
-# Read the CSV data from the S3 bucket
-df = spark.read.csv('s3://my_bucket/data/my_file.csv')
+config = {
+    "spark.jars.packages": "org.apache.hadoop:hadoop-aws:3.3.1",
+    "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider",
+}
+conf = SparkConf().setAll(config.items())
+spark = SparkSession.builder.config(conf=conf).getOrCreate()
+
+df = spark.read.csv(f"s3a://{BUCKET}/{KEY}", header=True)
+df.show()
+
 
 # Print the schema of the DataFrame
 df.printSchema()
 
 ### 2. Convert the Spark DataFrames to Pandas DataFrames ###
 # Import the necessary modules
-from pyspark.sql import SparkSession
 import pandas as pd
-
-# Create a SparkSession object
-spark = SparkSession.builder.appName('my_app').getOrCreate()
-
-# Read the data into a Spark DataFrame
-df = spark.read.csv('s3://my_bucket/data/my_file.csv')
 
 # Convert the Spark DataFrame to a Pandas DataFrame
 pandas_df = df.toPandas()
