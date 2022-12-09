@@ -13,3 +13,24 @@ USER $NB_UID
 
 ENV JUPYTER_ENABLE_LAB=yes
 
+
+# Create a Dockerfile with the following contents:
+#
+FROM python:3.7
+ADD main.py /
+RUN pip install pandas
+CMD ["python", "./main.py"]
+
+# Build the Docker image using the Dockerfile
+$ docker build -t my_image .
+
+# Tag the Docker image with a unique name
+$ docker tag my_image <my_aws_account_id>.dkr.ecr.<my_region>.amazonaws.com/my_repository:latest
+
+# Push the Docker image to ECR
+$ docker push <my_aws_account_id>.dkr.ecr.<my_region>.amazonaws.com/my_repository:latest
+
+
+
+
+

@@ -285,9 +285,7 @@ df.printSchema()
 # ##That is entirely normal and inherent to the distributed processing character of Spark. ###
 
 # Write the DataFrame to the S3 bucket
-df.write.csv('s3://my_bucket/data/output_file.csv')
 df.write.json('s3://my_bucket/data/output_file.json')
-df.write.parquet('s3://my_bucket/data/output_file.parquet')
 
 ### 6. Package this set of code in a Docker image that you must push to the AWS elastic container registry ###
 ### Links to an external site.(ECR) bearing the name 338791806049.dkr.ecr.eu-west-1.amazonaws.com/vlerick_cloud_solutions ###
@@ -296,23 +294,4 @@ df.write.parquet('s3://my_bucket/data/output_file.parquet')
 # Install Docker on your local machine
 
 # Write the code that you want to package in a file named main.py
-
-# Create a Dockerfile with the following contents:
-#
-FROM python:3.7
-ADD main.py /
-RUN pip install pandas
-CMD ["python", "./main.py"]
-
-# Build the Docker image using the Dockerfile
-$ docker build -t my_image .
-
-# Tag the Docker image with a unique name
-$ docker tag my_image <my_aws_account_id>.dkr.ecr.<my_region>.amazonaws.com/my_repository:latest
-
-# Push the Docker image to ECR
-$ docker push <my_aws_account_id>.dkr.ecr.<my_region>.amazonaws.com/my_repository:latest
-
-
-
 
