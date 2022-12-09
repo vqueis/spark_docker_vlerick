@@ -15,13 +15,15 @@ config = {
 conf = SparkConf().setAll(config.items())
 spark = SparkSession.builder.config(conf=conf).getOrCreate()
 
-df = spark.read.csv(f"s3a://{BUCKET}/{KEY1}", header=True)
-df = spark.read.csv(f"s3a://{BUCKET}/{KEY2}", header=True)
-df.show()
-
+pre = spark.read.csv(f"s3a://{BUCKET}/{KEY2}", header=True)
+after = spark.read.csv(f"s3a://{BUCKET}/{KEY1}", header=True)
+pre.show()
+df = pre
+df2 = after
 
 # Print the schema of the DataFrame
 df.printSchema()
+df2.printSchema()
 
 ### 2. Convert the Spark DataFrames to Pandas DataFrames ###
 # Import the necessary modules
@@ -29,9 +31,11 @@ import pandas as pd
 
 # Convert the Spark DataFrame to a Pandas DataFrame
 pandas_df = df.toPandas()
+pandas_df2 = df2.toPandas()
 
 # Print the first five rows of the Pandas DataFrame
 print(pandas_df.head())
+print(pandas_df2.head())
 
 ### 3. Rerun the same ML training and scoring logic ###
 # ## that you had created prior to this class, starting with the Pandas DataFrames you got in step 2 ###
@@ -42,12 +46,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder, StandardScaler, MinMaxScaler
 from sklearn.impute import SimpleImputer
-dir = '../data/pre_release.csv'
-df_pre = pd.read_csv(dir)
+df_pre = pandas_df
 df_pre.head(10)
 
-dir = '../data/after_release.csv'
-df_after = pd.read_csv(dir)
+df_after = pandas_df2
 df_after.head(10)
 #now we merge the pre and after release
 df_merged = pd.merge(df_pre, df_after, on='movie_title', how='inner')
@@ -275,20 +277,19 @@ pd.DataFrame({'eval_criteria': ['r-square','MAE'],'value':[rsquare,mae]})
 
 ### 4. Convert the dataset of results back to a Spark DataFrame ###
 
-# Read the data into a Pandas DataFrame
-pandas_df = pd.read_csv('vlerick/verena.csv')
-
 # Convert the Pandas DataFrame to a Spark DataFrame
-df = spark.createDataFrame(pandas_df)
+result = spark.createDataFrame(val_pred)
+
 
 # Print the schema of the Spark DataFrame
-df.printSchema()
+result.printSchema()
+
 
 ### 5. Write this DataFrame to the same S3 bucket dmacademy-course-assets under the prefix vlerick/<your_name>/ as JSON lines. ###
 ### It is likely Spark will create multiple files there. ###
 # ##That is entirely normal and inherent to the distributed processing character of Spark. ###
 
 # Write the DataFrame to the S3 bucket
-df.write.json('s3://BUCKET/vlerick/verena.json')
+df.write.json('s3a://BUCKET/vlerick/verena.json')
 
 
