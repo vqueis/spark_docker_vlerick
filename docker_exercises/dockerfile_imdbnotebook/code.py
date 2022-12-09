@@ -5,8 +5,8 @@ import os
 
 print(f"Here are the keys I found: {os.environ.get('AWS_SECRET_ACCESS_KEY')}")
 BUCKET = "dmacademy-course-assets"
-KEY = "vlerick/after_release.csv"
-KEY= "vlerick/pre_release.csv"
+KEY1 = "vlerick/after_release.csv"
+KEY2= "vlerick/pre_release.csv"
 
 config = {
     "spark.jars.packages": "org.apache.hadoop:hadoop-aws:3.3.1",
@@ -15,7 +15,8 @@ config = {
 conf = SparkConf().setAll(config.items())
 spark = SparkSession.builder.config(conf=conf).getOrCreate()
 
-df = spark.read.csv(f"s3a://{BUCKET}/{KEY}", header=True)
+df = spark.read.csv(f"s3a://{BUCKET}/{KEY1}", header=True)
+df = spark.read.csv(f"s3a://{BUCKET}/{KEY2}", header=True)
 df.show()
 
 
