@@ -1,9 +1,12 @@
 ### 1. Read the CSV data from this S3 bucket using PySpark ###
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
+import os
 
+print(f"Here are the keys I found: {os.environ.get('AWS_SECRET_ACCESS_KEY')}")
 BUCKET = "dmacademy-course-assets"
-KEY = "vlerick/after_release.csv", "vlerick/pre_release.csv"
+KEY = "vlerick/after_release.csv"
+KEY= "vlerick/pre_release.csv"
 
 config = {
     "spark.jars.packages": "org.apache.hadoop:hadoop-aws:3.3.1",
