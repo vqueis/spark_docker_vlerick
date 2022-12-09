@@ -272,7 +272,7 @@ pd.DataFrame({'eval_criteria': ['r-square','MAE'],'value':[rsquare,mae]})
 ### 4. Convert the dataset of results back to a Spark DataFrame ###
 
 # Read the data into a Pandas DataFrame
-pandas_df = pd.read_csv('my_file.csv')
+pandas_df = pd.read_csv('vlerick/verena.csv')
 
 # Convert the Pandas DataFrame to a Spark DataFrame
 df = spark.createDataFrame(pandas_df)
@@ -285,13 +285,6 @@ df.printSchema()
 # ##That is entirely normal and inherent to the distributed processing character of Spark. ###
 
 # Write the DataFrame to the S3 bucket
-df.write.json('s3://my_bucket/data/output_file.json')
+df.write.json('s3://BUCKET/vlerick/verena.json')
 
-### 6. Package this set of code in a Docker image that you must push to the AWS elastic container registry ###
-### Links to an external site.(ECR) bearing the name 338791806049.dkr.ecr.eu-west-1.amazonaws.com/vlerick_cloud_solutions ###
-### and with a tag that starts with your first name. ###
-
-# Install Docker on your local machine
-
-# Write the code that you want to package in a file named main.py
 
