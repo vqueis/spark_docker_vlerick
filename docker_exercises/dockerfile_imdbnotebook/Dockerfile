@@ -43,9 +43,8 @@ CMD [ "code.py"]
 # Build the Docker image using the Dockerfile
 #$ docker build -t my_image .  (docker image build -t vq-image3 /workspace/spark_docker_vlerick/docker_exercises/dockerfile_imdbnotebook)
 
-#docker run vq-image2:latest
-
 #docker run -e AWS_ACCESS_KEY_ID=xyz -e AWS_SECRET_ACCESS_KEY=aaa myimage         vul in xyz en aaa codes van outlook
+
 
 # Tag the Docker image with a unique name
 #$ docker tag vq-image2 338791806049.dkr.ecr.eu-west-1.amazonaws.com/vlerick_cloud_solutions_verena

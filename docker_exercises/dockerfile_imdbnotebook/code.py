@@ -290,6 +290,6 @@ result.printSchema()
 # ##That is entirely normal and inherent to the distributed processing character of Spark. ###
 
 # Write the DataFrame to the S3 bucket
-df.write.json('s3a://BUCKET/vlerick/verena.json')
+df.write.json('s3a://dmacademy-course-assets/vlerick/verena.json')
 
 
