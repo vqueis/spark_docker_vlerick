@@ -6,24 +6,18 @@
 
 FROM python:3.9.12
 LABEL Verena <vqueis@gmail.com>:
-ADD code.py .
 
 # Install apt packages and clean up cached files
-RUN apt-get update && \
-    apt-get install -y openjdk-8-jdk python3-venv && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    echo "..." \
+RUN apt-get update && apt-get install -y openjdk-11-jdk 
 
-RUN python3 version RUN pip3 --version 
+#RUN python3 version RUN pip3 --version 
 
 WORKDIR /workspace/spark_docker_vlerick/docker_exercises/dockerfile_imdbnotebook 
-COPY dockerfile_imdbnotebook/ .
+COPY . /workspace/spark_docker_vlerick/docker_exercises/dockerfile_imdbnotebook 
 
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD [ "python", "spark_docker_vlerick/dockerfile_imdbnotebook/code.py"]
 
 
 # Install the AWS CLI and clean up tmp files
@@ -32,23 +26,31 @@ RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -O ./awscliv2.
    ./aws/install
    #krm -rf ./aws awscliv2.zip
 
+#RUN pip install awscli
+#RUN --mount=type=secret,id=aws,target=/root/.aws/credentials aws s3a cp s3a://338791806049.dkr.ecr.eu-west-1.amazonaws.com/vlerick_cloud_solutions
 
 # For vscode
 EXPOSE 3000
 # for spark
 EXPOSE 4040
 
-ENTRYPOINT [ "python" ]
-CMD [ "python", "spark_docker_vlerick/dockerfile_imdbnotebook/code.py"] 
+ENTRYPOINT [ "python3" ]
+CMD [ "code.py"] 
+
+
+
 
 # Build the Docker image using the Dockerfile
 #$ docker build -t my_image .
 
+
+#docker run -e AWS_ACCESS_KEY_ID=xyz -e AWS_SECRET_ACCESS_KEY=aaa myimage         vul in xyz en aaa codes van outlook
+
 # Tag the Docker image with a unique name
-#$ docker tag my_image <my_aws_account_id>.dkr.ecr.<my_region>.amazonaws.com/my_repository:latest
+#$ docker tag vq-image2 338791806049.dkr.ecr.eu-west-1.amazonaws.com/vlerick_cloud_solutions_verena
 
 # Push the Docker image to ECR
-#$ docker push <my_aws_account_id>.dkr.ecr.<my_region>.amazonaws.com/my_repository:latest
+#$ docker push 338791806049.dkr.ecr.eu-west-1.amazonaws.com/vlerick_cloud_solutions_verena
 
 
 
