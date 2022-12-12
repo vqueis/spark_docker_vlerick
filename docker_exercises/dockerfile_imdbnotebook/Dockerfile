@@ -19,13 +19,6 @@ COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 
-
-# Install the AWS CLI and clean up tmp files
-RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -O ./awscliv2.zip && \
-   unzip awscliv2.zip && \
-   ./aws/install
-   #krm -rf ./aws awscliv2.zip
-
 #RUN pip install awscli
 #RUN --mount=type=secret,id=aws,target=/root/.aws/credentials aws s3a cp s3a://338791806049.dkr.ecr.eu-west-1.amazonaws.com/vlerick_cloud_solutions
 
@@ -39,6 +32,17 @@ CMD [ "code.py"]
 
 
 
+# Install the AWS CLI and clean up tmp files
+#RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -O ./awscliv2.zip && \
+#unzip awscliv2.zip && \
+#./aws/install
+#krm -rf ./aws awscliv2.zip
+
+# aws ecr get-login-password --region eu-west-1 | \
+# docker login \
+# --username AWS \
+# --password-stdin \
+# 338791806049.dkr.ecr.eu-west-1.amazonaws.com/vlerick_cloud_solutions
 
 # Build the Docker image using the Dockerfile
 #$ docker build -t my_image .  (docker image build -t vq-image3 /workspace/spark_docker_vlerick/docker_exercises/dockerfile_imdbnotebook)
